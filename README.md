@@ -1,9 +1,9 @@
 # ovahub
-MQTT Broker tools for administrating Ova bots and Jusdeliens IDEAL games
+MQTT Broker tools for administrating [Ova bots](https://jusdeliens.com/ova) and Jusdeliens [IDEAL games](https://jusdeliens.com/ideal-arena/)
 
 ## 🎯 Context
 
-`OvaHub` is a CLI tool to allow any user to administrate its own mqtt broker on a **L**ocal **A**rea **N**etwork to play with Jusdeliens Ova bots and IDEAL games.
+`OvaHub` is a CLI tool to allow any user to administrate its own mqtt broker on a **L**ocal **A**rea **N**etwork to play with  [Ova bots](https://jusdeliens.com/ova) and Jusdeliens [IDEAL arena games](https://jusdeliens.com/ideal-arena/).
 
 ## 📁 Project structure
 
