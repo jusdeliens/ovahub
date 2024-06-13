@@ -1,0 +1,3 @@
+mosquitto/config/passwd.ini
+*.log
+*.db
