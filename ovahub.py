@@ -50,7 +50,7 @@ config = {
 	 	"The broker image to download from docker repo"],
 	"os": ["win", 
 		"The host machine os. 'win' = windows, 'unix' = linux, mac ... "],
-	"arena": ["BattlefX", 
+	"arena": ["", 
 		"The name of the default arena to join "],
 	"viewer": ["tactx", 
 		"The of the html folder on viewer website. Can be 'robots','tactx','xihara'"]
@@ -141,7 +141,7 @@ def start():
 		info(f"📬 ws: {config['ws-port'][0]}")
 		info("If not, check your network connection and your firewall")
 		info(f"To join/admin an arena, open this url your web browser")
-		info(f"👉 http://play.jusdeliens.com/login/?arena={config['arena'][0]}&viewer={config['viewer'][0]}&url={ip_address}&port={config['ws-port'][0]}&show=address_port_username_password_viewer_arena_pseudo")
+		info(f"👉 http://play.jusdeliens.com/login/?arena={config['arena'][0]}&viewer={config['viewer'][0]}&url={ip_address}&port={config['ws-port'][0]}&usr=admin&pwd=&pseudo=admin&show=address_port_username_password_viewer")
 		info("")
 		time.sleep(1)
 	except:
@@ -159,11 +159,19 @@ def regusr():
 		print()
 		print("Add new users and password.")
 		print("Press Enter with empty username to stop.")
+		defaultUsernames = ["admin", "demo", "ova"]
 		users = {}
 		while True:
-			usrname = input("👤 username: ")
-			if len(usrname) == 0:
-				break
+			usrname = None
+			for defaultUsr in defaultUsernames:
+				if defaultUsr not in users:
+					usrname = defaultUsr
+					print(f"👤 username: {usrname}")
+					break
+			if usrname == None:
+				usrname = input("👤 username: ")
+				if len(usrname) == 0:
+					break
 			while True:
 				print("🔑 password: ")
 				usrpwd = getpass(">")
