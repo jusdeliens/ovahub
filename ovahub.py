@@ -44,7 +44,7 @@ config = {
 		"The name of the docker container running the broker"],
 	"mqtt-port": ["1883", 
 	    "The default port for mqtt clients"], 
-	"ws-port": ["9001",
+	"ws-port": ["8080",
 		"The websocket port for web browser clients"] ,
 	"img": ["eclipse-mosquitto:latest", 
 	 	"The broker image to download from docker repo"],
@@ -72,8 +72,8 @@ def help():
 	print("Administrate your own LAN mqtt broker in a unix shell to play with Jusdeliens Ova bots and IDEAL games")
 	print()
 	print("Sample:")
-	print("\tTo start mqtt broker container listening 1883 and 9001 port on a windows host machine")
-	print("\t> python ovahub.py start --mqtt-port 1883 --ws-port 9001 --os win")
+	print("\tTo start mqtt broker container listening 1883 and 8080 port on a windows host machine")
+	print("\t> python ovahub.py start --mqtt-port 1883 --ws-port 8080 --os win")
 	print()
 	print("Options:")
 	for key,value in config.items():

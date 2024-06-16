@@ -1,0 +1,151 @@
+@startuml arch
+'On windows: ALT+D to preview plant uml diagram
+
+'left to right direction
+'skinparam linetype polyline
+'skinparam linetype ortho
+'skinparam nodesep 200
+skinparam ranksep 20
+skinparam backgroundColor transparent
+
+!$rgbPub = OrangeRed
+!$rgbSub = DarkGreen
+!$rgbTran = ffffff
+!$rgbGroupHead = LightGray
+!$rgbGroupBorder = LightGray
+!$rgbUsr1 = Pink
+!$rgbUsr2 = LightCyan
+
+'Define states headers
+state "**💻 Admin PC**" as AdminPC #$rgbGroupHead;line:$rgbGroupBorder {
+    state "**🎰 OVAHUB**" as Broker {
+        state "**🔑 Access Control List**" as BrokerACLS {
+        }
+    }
+    state "**🎰 TactX IDEAL Arena**" as AdminTxA {
+    }
+    AdminTxA -left[hidden]-> Broker
+}
+state "**💻 Users PC**" as UsrPC #$rgbGroupHead;line:$rgbGroupBorder {
+    state "**💻 Users IDE**" as UsrIDE #$rgbGroupHead;line:$rgbGroupBorder {
+        state "**💻 User1**" as Usr1IDE #$rgbUsr1 {
+        }
+        state "**💻 User2**" as Usr2IDE #$rgbUsr2 {  
+        }
+        Usr1IDE -down[hidden]-> Usr2IDE
+    }
+    state "**🪟 Users TactX Viewer**" as UsrTxV #$rgbGroupHead;line:$rgbGroupBorder {
+        state "**🪟 User1 TactX Viewer**" as Usr1TxV #$rgbUsr1 {
+        }
+        state "**🪟 User2 TactX Viewer**" as Usr2TxV #$rgbUsr2 {
+        }
+        Usr1TxV -down[hidden]-> Usr2TxV
+    }
+    UsrIDE -right[hidden]-> UsrTxV
+}
+state "**🤖 Users Bots**"  as UsrBot #$rgbGroupHead;line:$rgbGroupBorder {
+    state "**🤖 Ova1**" as Usr1Bot #$rgbUsr1 {
+    }
+    state "**🤖 Ova2**" as Usr2Bot #$rgbUsr2 {  
+    }
+    Usr1Bot -down[hidden]-> Usr2Bot
+}
+
+'Place states positions with invisible arrows
+Broker --up[hidden]--> UsrPC
+Broker --up[hidden]--> UsrBot
+Broker --right[hidden]--> AdminPC
+
+'Define states bodies
+Usr1IDE :  📜 api: **OvaMqttClient.py**\n📬 mqtt : **1883**\n🔑 username: **demo**\n🆔 playerID: **player1**\n🤖 robotID: **ova1**
+Usr2IDE :  📜 api: **OvaMqttClient.py**\n📬 mqtt : **1883**\n🔑 username: **demo**\n🆔 playerID: **player2**\n🤖 robotID: **ova2**
+Usr1TxV : 🪟 Open in web browser\n🌐 http://play.jusdeliens.com\n📬 ws : **8080**\n🎥 viewer: **tactx**\n🔑 username: **demo**\n🤖 robotID: **ova1**
+Usr2TxV : 🪟 Open in web browser\n🌐 http://play.jusdeliens.com\n📬 ws : **8080**\n🎥 viewer: **tactx**\n🔑 username: **demo**\n🤖 robotID: **ova2**
+Usr1Bot :  📬 mqtt : **1883**\n🔑 username: **ova**\n🆔 robotID: **ova1**
+Usr2Bot :  📬 mqtt : **1883**\n🔑 username: **ova**\n🆔 robotID: **ova2**
+AdminTxA : 🪟 Open in web browser
+AdminTxA : 🌐 http://dev.jusdeliens.com/workspace?load=arena
+AdminTxA : 📬 ws : **8080**\n🔑 username: **admin**
+Broker :  📥 Clone from **http://github.com/jusdeliens/ovahub** 
+Broker :  🐳 Run locally on the **same LAN** in **dockerized** environment
+Broker :  🌐 ip : **192.168.x.x**\n📬 mqtt : **1883**\n📬 ws : **8080**
+BrokerACLS:\
+👤 any ~~playerID~~ : rx any ~~arena~~ but req only with its ~~playerID~~, rx sensors of any ~~robotID~~\
+\n<color:$rgbPub>**write** ~~+~~/clients/request/~~arena~~/~~playerID~~</color>\
+\n<color:$rgbPub>**write** ~~+~~/server/ping/~~arena~~</color>\
+\n<color:$rgbSub>**read** ~~+~~/server/state/~~arena~~</color>\
+\n<color:$rgbSub>**read** ~~+~~/server/view/~~arena~~</color>\
+\n<color:$rgbSub>**read** ~~+~~/clients/stream/~~robotID~~</color>\
+\n<color:$rgbSub>**read** ~~+~~/clients/state/~~robotID~~</color>\
+\n\
+\n🤖 any ~~robotID~~ : tx state, rx request & conf of its ~~robotID~~ only\
+\n<color:$rgbPub>**write** optx/clients/stream/~~robotID~~</color>\
+\n<color:$rgbPub>**write** robotx/clients/state/~~robotID~~</color>\
+\n<color:$rgbSub>**read** robotx/clients/request/~~robotID~~</color>\
+\n<color:$rgbSub>**read** robotx/clients/conf/~~robotID~~</color>\
+\n\
+\n🔑 any ~~username~~: run only 1 ~~arena~~ corresponding to its ~~username~~, opened to any ~~playerID~~\
+\n<color:$rgbPub>**readwrite** ~~+~~/clients/request/~~arena~~/~~playerID~~</color>\
+\n<color:$rgbPub>**readwrite** ~~+~~/server/request/~~arena~~</color>\
+\n<color:$rgbPub>**readwrite** ~~+~~/clients/state/~~arena~~/~~playerID~~</color>\
+\n<color:$rgbPub>**readwrite** ~~+~~/server/state/~~arena~~</color>\
+\n<color:$rgbPub>**readwrite** ~~+~~/server/view/~~arena~~</color>\
+\n<color:$rgbPub>**readwrite** ~~+~~/server/ping/~~arena~~</color>\
+\n\
+\n🔑 username: **admin** : run and admin any ~~arena~~ opened to any ~~playerID~~, admin any ~~robotID~~\
+\n<color:$rgbPub>**readwrite** ~~+~~/clients/request/~~robotID~~</color>\
+\n<color:$rgbPub>**readwrite** ~~+~~/clients/request</color>\
+\n<color:$rgbPub>**readwrite** ~~+~~/server/request/~~arena~~</color>\
+\n<color:$rgbPub>**readwrite** ~~+~~/clients/state/~~arena~~/~~playerID~~</color>\
+\n<color:$rgbPub>**write** ~~+~~/clients/conf/~~robotID~~</color>\
+\n<color:$rgbPub>**write** ~~+~~/clients/conf</color>\
+\n<color:$rgbPub>**write** ~~+~~/server/state/~~arena~~</color>\
+\n<color:$rgbPub>**write** ~~+~~/server/view/~~arena~~</color>\
+\n<color:$rgbSub>**read** ~~+~~/clients/request/~~arena~~/~~playerID~~</color>\
+\n<color:$rgbSub>**read** ~~+~~/clients/stream/~~robotID~~</color>\
+\n<color:$rgbSub>**read** ~~+~~/clients/state/~~robotID~~</color>\
+\n<color:$rgbSub>**read** ~~+~~/clients/state</color>\
+\n<color:$rgbSub>**read** ~~+~~/server/ping/~~arena~~</color>\
+\n\
+\n🔑 username: **ova** : rx robots broadcast for conf or req\
+\n<color:$rgbSub>**read** robotx/clients/request</color>\
+\n<color:$rgbSub>**read** robotx/clients/conf</color>\
+
+'AdminTxA to Broker relations
+ AdminTxA -left[#$rgbPub]-> Broker : <color:$rgbPub>**pub**</color>\
+\n<color:$rgbPub>ludx/clients/state/~~arena~~/~~playerID~~</color>\
+\n<color:$rgbPub>ludx/server/state/~~arena~~</color>\
+\n<color:$rgbPub>robotx/clients/request/~~robotID~~</color>\
+\n<color:$rgbPub>robotx/clients/request</color>
+ Broker -right[#$rgbSub]-> AdminTxA : <color:$rgbSub>**sub**</color>\
+\n<color:$rgbSub>ludx/clients/request/~~arena~~/~~playerID~~</color>\
+\n<color:$rgbSub>ludx/server/ping/~~arena~~</color>\
+\n<color:$rgbSub>ludx/server/request/~~arena~~</color>
+
+'UsrTxV to Broker relations
+ UsrTxV ---[#$rgbPub]---> Broker : <color:$rgbPub>**pub**</color>\
+\n<color:$rgbPub>ludx/server/ping/~~arena~~</color>
+ Broker -[#$rgbSub]-> UsrTxV  : <color:$rgbSub>**sub**\
+\n<color:$rgbSub>ludx/clients/state/~~arena~~/~~playerID~~</color>\
+\n<color:$rgbSub>ludx/server/state/~~arena~~</color>\
+
+'UsrIDE to Broker relations
+ UsrIDE -down[#$rgbPub]-> Broker : <color:$rgbPub>**pub**</color>\
+\n<color:$rgbPub>ludx/clients/request/~~arena~~/~~playerID~~</color>
+ Broker -up[#$rgbSub]-> UsrIDE  : <color:$rgbSub>**sub**\
+\n<color:$rgbSub>ludx/clients/state/~~arena~~/~~playerID~~</color>\
+\n<color:$rgbSub>robotx/clients/state/~~robotID~~</color>\
+\n<color:$rgbSub>optx/clients/state/~~robotID~~</color>\
+
+'UsrBot to Broker relations
+ UsrBot -down[#$rgbPub]-> Broker : <color:$rgbPub>**pub**</color>\
+\n<color:$rgbPub>ludx/clients/state/~~playerID~~</color>\
+\n<color:$rgbPub>optx/clients/stream/~~robotID~~</color>
+ Broker -up[#$rgbSub]-> UsrBot : <color:$rgbSub>**sub**</color>\
+\n<color:$rgbSub>robotx/clients/request/~~robotID~~</color>\
+\n<color:$rgbSub>robotx/clients/request</color>\
+\n<color:$rgbSub>robotx/clients/conf/~~robotID~~</color>\
+\n<color:$rgbSub>robotx/clients/conf</color>\
+
+
+@enduml

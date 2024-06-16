@@ -5,6 +5,10 @@ MQTT Broker tools for administrating [Ova bots](https://jusdeliens.com/ova) and 
 
 `OvaHub` is a CLI tool to allow any user to administrate its own mqtt broker on a **L**ocal **A**rea **N**etwork to play with  [Ova bots](https://jusdeliens.com/ova) and Jusdeliens [IDEAL arena games](https://jusdeliens.com/ideal-arena/).
 
+## 🌐 Network architecture
+
+Open the `doc/arch.wsd` in VSCode, then use **plantUML** extension with the shortcut `ALT+D` to generate the network architecture diagram. 
+
 ## 📁 Project structure
 
 - **.vscode** : IDE settings tasks to be loaded in VScode using `CTRL+SHIFT+B` shortcut
@@ -41,9 +45,10 @@ Click here if you want to [know more about WSL](https://learn.microsoft.com/fr-f
 Once Docker Desktop started on your admin session, follow theses steps
 
 ### 🔑 Create users and password 
-When using Jusdeliens product, you should have at least 2 users :
-- `demo` : for non admin users
-- `admin` : only for 1 admin user
+When using Jusdeliens product, you should have at least 3 users :
+- `demo` : for non admin users with a simple password
+- `admin` : only for 1 admin user with a strong password
+- `ova` : username used by ova bots
 
 Usernames and password must be stored encrypted in the `passwd.ini` file. To do it, simply use `CTRL+SHIFT+B` shortcut in VSCode and select the task `Register users and passwords`.
 
@@ -73,7 +78,7 @@ This should start the broker and display your network informations to give to us
 📬 ws: 9001
 If not, check your network connection and your firewall
 To join/admin an arena, open this url your web browser
-👉 http://play.jusdeliens.com/login/?arena=BattlefX&viewer=tactx&url=192.168.x.x&port=9001&show=address_port_username_password_viewer_arena_pseudo
+👉 http://play.jusdeliens.com/login/?viewer=tactx&url=192.168.x.x&port=8080&usr=admin&pwd=&pseudo=admin&show=address_port_username_password_viewer
 ```
 
 then, this kind of successfull logs
