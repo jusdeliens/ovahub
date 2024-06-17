@@ -7,7 +7,9 @@ MQTT Broker tools for administrating [Ova bots](https://jusdeliens.com/ova) and 
 
 ## 🌐 Network architecture
 
-Open the `doc/arch.wsd` in VSCode, then use **plantUML** extension with the shortcut `ALT+D` to generate the network architecture diagram. 
+![Network architecture diagram](/doc/arch.svg "Network architecture diagram") 
+
+*👆 The following diagram is generated from `doc/arch.wsd` with **plantUML** extension in VSCode*
 
 ## 📁 Project structure
 

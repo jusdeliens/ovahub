@@ -1,3 +1,4 @@
 mosquitto/config/passwd.ini
 *.log
 *.db
+out/

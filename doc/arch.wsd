@@ -1,5 +1,7 @@
 @startuml arch
-'On windows: ALT+D to preview plant uml diagram
+'On vscode: 
+'ALT+D to preview plant uml diagram
+'CTRL+SHIFT+O + ">" -> PlantUML export current file diagrams to save as image, then go to /out/ folder
 
 'left to right direction
 'skinparam linetype polyline
