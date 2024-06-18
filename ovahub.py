@@ -122,7 +122,9 @@ def clear():
 			warning("Fail to remove file "+fileToRemove+""+": "+str(e))
 		
 def start():
-	"""Called when 'start' command is specified"""
+	"""Called when 'start' command is specified
+	TODO: add prompt to set verbosity in conf
+	"""
 	try:
 		stop()
 		clear()
@@ -140,8 +142,12 @@ def start():
 		info(f"📬 mqtt: {config['mqtt-port'][0]}")
 		info(f"📬 ws: {config['ws-port'][0]}")
 		info("If not, check your network connection and your firewall")
+		info("")
 		info(f"To join/admin an arena, open this url your web browser")
 		info(f"👉 http://play.jusdeliens.com/login/?arena={config['arena'][0]}&viewer={config['viewer'][0]}&url={ip_address}&port={config['ws-port'][0]}&usr=admin&pwd=&pseudo=admin&show=address_port_username_password_viewer")
+		info("")
+		info(f"To join arena as user, open this url your web browser")
+		info(f"👉 http://play.jusdeliens.com/login/?arena={config['arena'][0]}&viewer={config['viewer'][0]}&url={ip_address}&port={config['ws-port'][0]}&usr=demo&pwd=&pseudo=&show=address_port_username_password_pseudo")
 		info("")
 		time.sleep(1)
 	except:
@@ -150,15 +156,16 @@ def start():
 	logfile = ospathjoin(config["log-dir"][0],"mosquitto.log")
 	info(f"⏳ Debuging log from {logfile} ...")
 	info("💡 Press CTRL+C to interrupt debug once started")
-	time.sleep(2)
+	time.sleep(10)
 	run(f"tail -F {logfile}")
 
 def regusr():
+	"""
+	TODO: Add explicit message for each username and password prompt
+	TODO: Add link at the end to open the passwd.ini file
+	"""
 	pwdfilepath = ospathjoin(config["config-dir"][0],"passwd.ini")
 	with open(pwdfilepath, 'w', encoding='utf-8') as f:
-		print()
-		print("Add new users and password.")
-		print("Press Enter with empty username to stop.")
 		defaultUsernames = ["admin", "demo", "ova"]
 		users = {}
 		while True:
@@ -166,9 +173,13 @@ def regusr():
 			for defaultUsr in defaultUsernames:
 				if defaultUsr not in users:
 					usrname = defaultUsr
-					print(f"👤 username: {usrname}")
+					print()
+					print(f"Set the password for required user\n👤 {usrname}")
 					break
 			if usrname == None:
+				print()
+				print("Add new users and password.")
+				print("Press Enter with empty username to stop.")
 				usrname = input("👤 username: ")
 				if len(usrname) == 0:
 					break
