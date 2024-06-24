@@ -141,7 +141,10 @@ def start():
 		info(f"🟢 The broker may now be online on LAN at {ip_address}, with following available ports for clients 👇")
 		info(f"📬 mqtt: {config['mqtt-port'][0]}")
 		info(f"📬 ws: {config['ws-port'][0]}")
-		info("If not, check your network connection and your firewall")
+		info("")
+		info(f"If not, try run the task once again, and check")
+		info(f" - your network connection")
+		info(f" - your firewall allows the opening of these ports")
 		info("")
 		info(f"To join/admin an arena, open this url your web browser")
 		info(f"👉 http://play.jusdeliens.com/login/?arena={config['arena'][0]}&viewer={config['viewer'][0]}&url={ip_address}&port={config['ws-port'][0]}&usr=admin&pwd=&pseudo=admin&show=address_port_username_password_viewer")
@@ -160,10 +163,6 @@ def start():
 	run(f"tail -F {logfile}")
 
 def regusr():
-	"""
-	TODO: Add explicit message for each username and password prompt
-	TODO: Add link at the end to open the passwd.ini file
-	"""
 	pwdfilepath = ospathjoin(config["config-dir"][0],"passwd.ini")
 	with open(pwdfilepath, 'w', encoding='utf-8') as f:
 		defaultUsernames = ["admin", "demo", "ova"]
@@ -193,8 +192,16 @@ def regusr():
 			users[usrname] = usrpwd
 		for usrname, usrpwd in users.items():
 			f.write(f"{usrname}:{usrpwd}\n")			
-        # your logic goes right here
 	run(f'docker run -it --rm -v {config["config-dir"][0]}/:/mosquitto/config --name {config["name"][0]}-regusr {config["img"][0]} mosquitto_passwd -U /mosquitto/config/passwd.ini', sudo=True)
+	info("")
+	info(f"Open the passwd.ini file to check if user passwords are well encrypted in")
+	info(f"👉 {pwdfilepath}")
+	info("")
+	info(f"If not, try run the task once again, and check")
+	info(f" - docker engine is running")
+	info(f" - there is enough available disk space")
+	info(f" - that you are connected to Internet to fetch the docker image")
+	info("")
 
 
 cmd = {

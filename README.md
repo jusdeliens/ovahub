@@ -18,7 +18,7 @@ MQTT Broker tools for administrating [Ova bots](https://jusdeliens.com/ova) and 
     - **config** : Contains the `acls.ini` `passwd.ini` `mosquitto.conf` file to configure the broker settings
     - **data** : Stores the data exchanged in a database in `mosquitto.db` once the broker is started
     - **log** : Where `mosquitto.log` will be filled with debug informations according to the verbosity set in `mosquitto.conf` file
-- **doc**: documentation diagram generated using plantUML
+- **doc**: documentation diagrams generated using plantUML
 
 ## 🛠️ Setup
 

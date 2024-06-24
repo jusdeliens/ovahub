@@ -27,7 +27,7 @@
                 "showReuseMessage": true
             },
             "problemMatcher": [],
-            "detail": "Deploy broker on this machine LAN using Docker Desktop. ⚠️Docker must be started as admin before⚠️"
+            "detail": "Deploy broker on this machine LAN. ⚠️Docker must be started before⚠️"
         },
         {
             "label": "🔑 Register users and passwords",
