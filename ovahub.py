@@ -133,33 +133,38 @@ def start():
 	info("⏳ Starting container ... ")
 	run(f'docker run -dit --restart unless-stopped -v {config["config-dir"][0]}/:/mosquitto/config -v {config["data-dir"][0]}/:/mosquitto/data -v {config["log-dir"][0]}/:/mosquitto/log -p {config["mqtt-port"][0]}:1883 -p {config["ws-port"][0]}:9001 --name {config["name"][0]} {config["img"][0]}', sudo=True)
 
+	ip_address = ""
 	try:
 		import socket
 		hostname = socket.gethostname()
 		ip_address = socket.gethostbyname(hostname)
-		info("")
-		info(f"🟢 The broker may now be online on LAN at {ip_address}, with following available ports for clients 👇")
-		info(f"📬 mqtt: {config['mqtt-port'][0]}")
-		info(f"📬 ws: {config['ws-port'][0]}")
-		info("")
-		info(f"If not, try run the task once again, and check")
-		info(f" - your network connection")
-		info(f" - your firewall allows the opening of these ports")
-		info("")
-		info(f"To join/admin an arena, open this url your web browser")
-		info(f"👉 http://play.jusdeliens.com/login/?arena={config['arena'][0]}&viewer={config['viewer'][0]}&url={ip_address}&port={config['ws-port'][0]}&usr=admin&pwd=&pseudo=admin&show=address_port_username_password_viewer")
-		info("")
-		info(f"To join arena as user, open this url your web browser")
-		info(f"👉 http://play.jusdeliens.com/login/?arena={config['arena'][0]}&viewer={config['viewer'][0]}&url={ip_address}&port={config['ws-port'][0]}&usr=demo&pwd=&pseudo=&show=address_port_username_password_pseudo")
-		info("")
-		time.sleep(1)
 	except:
-		...
+		ip_address = ""
+	info("")
+	info("")
+	info(f"🟢 The broker may now be online on LAN at '{ip_address}', with following available ports for clients 👇")
+	info(f"📬 mqtt: {config['mqtt-port'][0]}")
+	info(f"📬 ws: {config['ws-port'][0]}")
+	info("")
+	info(f"If not, try run the task once again, and check")
+	info(f" - docker engine is started and running")
+	info(f" - your network connection")
+	info(f" - your firewall allows the opening of these ports")
+	time.sleep(3)
+	info("")
+	info("")
+	info(f"To join/admin an arena, open this url your web browser")
+	info(f"👉 http://devlan.jusdeliens.com/workspace?load=admin&arena={config['arena'][0]}&viewer={config['viewer'][0]}&url={ip_address}&port={config['ws-port'][0]}&usr=admin&pwd=&pseudo=admin&show=address_port_username_password_viewer")
+	info("")
+	info(f"To join arena as user, open this url your web browser")
+	info(f"👉 http://playlan.jusdeliens.com/login/?arena={config['arena'][0]}&viewer={config['viewer'][0]}&url={ip_address}&port={config['ws-port'][0]}&usr=demo&pwd=&pseudo=&show=address_port_username_password_pseudo")
+	time.sleep(10)
 
 	logfile = ospathjoin(config["log-dir"][0],"mosquitto.log")
+	info("")
+	info("")
 	info(f"⏳ Debuging log from {logfile} ...")
 	info("💡 Press CTRL+C to interrupt debug once started")
-	time.sleep(10)
 	run(f"tail -F {logfile}")
 
 def regusr():
@@ -193,6 +198,7 @@ def regusr():
 		for usrname, usrpwd in users.items():
 			f.write(f"{usrname}:{usrpwd}\n")			
 	run(f'docker run -it --rm -v {config["config-dir"][0]}/:/mosquitto/config --name {config["name"][0]}-regusr {config["img"][0]} mosquitto_passwd -U /mosquitto/config/passwd.ini', sudo=True)
+	info("")
 	info("")
 	info(f"Open the passwd.ini file to check if user passwords are well encrypted in")
 	info(f"👉 {pwdfilepath}")
