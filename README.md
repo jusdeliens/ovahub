@@ -87,7 +87,7 @@ This should start the broker and display your network informations to give to us
 📬 ws: 9001
 If not, check your network connection and your firewall
 To join/admin an arena, open this url your web browser
-👉 http://play.jusdeliens.com/login/?viewer=tactx&url=192.168.x.x&port=8080&usr=admin&pwd=&pseudo=admin&show=address_port_username_password_viewer
+👉 http://play.jusdeliens.com/login/?viewer=tactx&url=x.x.x.x&port=8080&usr=admin&pwd=&pseudo=admin&show=address_port_username_password_viewer
 ```
 
 > [!NOTE]  
