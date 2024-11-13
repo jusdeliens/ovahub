@@ -7,18 +7,24 @@ MQTT Broker tools for administrating [Ova bots](https://jusdeliens.com/ova) and 
 
 ## 🌐 Network architecture
 
+In all Jusdeliens' games, each player controls a robot in a virtual/augmented arena, through its computer, thanks to an AI program implemented to automatically assess the robot environment and perform actions to lead it to victory 🏆 !
+
+But as any game, there are rules to comply with ! And so, every requests shall be received and checked by a "referee program" (who does the same as a soccer referee in a football stadium ⚽︎), before every change can happen in the game.
+
+To be able to link all these following endpoints ...
+- each robot of every player
+- the AI program implemented by each player to control its robot, and which can be ran on the player's computer IDE (or on a dedicated server)
+- the arena server with its referee program
+- the arena viewers on each player computer browser, in order to render and see the virtual/augmented arena effects (map, ressources, fires & other special effects)
+
+... a robust network shall be implemented, with high performance & security constraints, both
+- physically : by using a 2.4Ghz wifi access point (embedding a DHCP server to automatically distribute IP to every endpoints), with credentials saved in each robot and computers to secure the physical access to the network
+- logically : by using a MQTT broker, to work as a logic mediator between all the endpoints, by allowing to secure who can read/write to who in what conditions thanks to editable ACL (Access Control List).
+ 
 ![Network architecture diagram](/doc/arch.svg "Network architecture diagram") 
 
 *This diagram is generated from `doc/arch.wsd` with **plantUML** extension in VSCode*
 
-## 📁 Project structure
-
-- **.vscode** : IDE settings tasks to be loaded in VScode using `CTRL+SHIFT+B` shortcut
-- **mosquitto** : Broker folder with all configurations files, logs and store data
-    - **config** : Contains the `acls.ini` `passwd.ini` `mosquitto.conf` file to configure the broker settings
-    - **data** : Stores the data exchanged in a database in `mosquitto.db` once the broker is started
-    - **log** : Where `mosquitto.log` will be filled with debug informations according to the verbosity set in `mosquitto.conf` file
-- **doc**: documentation diagrams generated using plantUML
 
 ## 🛠️ Setup
 
@@ -107,6 +113,15 @@ If not, check
 Now you can fully enjoy playing with Ova bots and IDEAL games without any constraints. Feel free to administrate your broker as you want by changing `acls.ini` `mosquitto.conf` and `passwd.ini`. Go on the [eclipse manual page](https://mosquitto.org/man/mosquitto-conf-5.html) to know more about how to do it.
 
 If you need more help, feel free to [contact us](https://jusdeliens.com/contact) to join our robotic masterclasses 🤖
+
+## 📁 Project structure
+
+- **.vscode** : IDE settings tasks to be loaded in VScode using `CTRL+SHIFT+B` shortcut
+- **mosquitto** : Broker folder with all configurations files, logs and store data
+    - **config** : Contains the `acls.ini` `passwd.ini` `mosquitto.conf` file to configure the broker settings
+    - **data** : Stores the data exchanged in a database in `mosquitto.db` once the broker is started
+    - **log** : Where `mosquitto.log` will be filled with debug informations according to the verbosity set in `mosquitto.conf` file
+- **doc**: documentation diagrams generated using plantUML
 
 ## 🧑‍💻 Author
 Designed with 💖 by [Jusdeliens Inc.](https://jusdeliens.com)
