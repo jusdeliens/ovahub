@@ -39,7 +39,7 @@ Then start Docker Engine as administrator. According to your OS, the Docker inst
 Install [Docker Desktop]() on a session with admin rights. Also, make sure you have the [WSL2 kernel update](https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi) installed on your windows. If not, you will have to install it at the end of Docker Desktop installation. 
 Click here if you want to [know more about WSL](https://learn.microsoft.com/fr-fr/windows/wsl/install).
 
-### 🍏 Unix
+### 🐧 Unix
 
 [Follow theses steps](https://docs.docker.com/desktop/install/linux-install/) to install Docker Desktop whether you are on Ubuntu, Debian, Fedora or Arch.
 
@@ -76,7 +76,7 @@ python ovahub.py start
 This should start the broker and display your network informations to give to user so that they could connect to your broker :
 
 ```
-🟢 The broker may now be online on LAN at 192.168.x.x, with following available ports for clients 👇
+🟢 The broker may now be online on LAN at x.x.x.x, with following available ports for clients 👇
 📬 mqtt: 1883
 📬 ws: 9001
 If not, check your network connection and your firewall
@@ -84,7 +84,12 @@ To join/admin an arena, open this url your web browser
 👉 http://play.jusdeliens.com/login/?viewer=tactx&url=192.168.x.x&port=8080&usr=admin&pwd=&pseudo=admin&show=address_port_username_password_viewer
 ```
 
-then, this kind of successfull logs
+> [!NOTE]  
+> `x.x.x.x` shall be replaced by (one of) your local ip address.
+> If you have other network interfaces, feel free to use another one
+> using `ipconfig` or `ifconfig` command in your shell.
+
+Then, this kind of successfull logs
 
 ```
 1718315757: mosquitto version 2.0.18 starting
