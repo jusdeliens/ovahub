@@ -14,7 +14,7 @@
       ],
     "tasks": [
         {
-            "label": "🐳 Start broker in a local container",
+            "label": "🐳🟢 2. Start broker in a local container",
             "type": "shell",
             "command": "python ovahub.py start",
             "group": "build",
@@ -30,7 +30,23 @@
             "detail": "Deploy broker on this machine LAN. ⚠️Docker must be started before⚠️"
         },
         {
-            "label": "🔑 Register users and passwords",
+            "label": "🐋🔴 3. Stop broker in a local container",
+            "type": "shell",
+            "command": "python ovahub.py stop",
+            "group": "build",
+            "isBackground": false,
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true
+            },
+            "problemMatcher": [],
+            "detail": "Stop broker on this machine LAN. ⚠️Broker must have been started before⚠️"
+        },
+        {
+            "label": "🔑👤 1. Register users and passwords",
             "type": "shell",
             "command": "python ovahub.py regusr",
             "group": "build",
