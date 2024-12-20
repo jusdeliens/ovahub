@@ -1,9 +1,9 @@
 # ovahub
-MQTT Broker tools for administrating [Ova bots](https://jusdeliens.com/ova) and Jusdeliens [IDEAL games](https://jusdeliens.com/ideal-arena/)
+MQTT Broker tools for administrating [Ova bots](https://jusdeliens.com/ova) and Jusdeliens [Ova Arena games](https://jusdeliens.com/ova-arena/)
 
 ## 🎯 Context
 
-`OvaHub` is a CLI tool to allow any user to administrate its own mqtt broker on a **L**ocal **A**rea **N**etwork to play with  [Ova bots](https://jusdeliens.com/ova) and Jusdeliens [IDEAL arena games](https://jusdeliens.com/ideal-arena/).
+`OvaHub` is a CLI tool to allow any user to administrate its own mqtt broker on a **L**ocal **A**rea **N**etwork to play with  [Ova bots](https://jusdeliens.com/ova) and [Ova Arena games](https://jusdeliens.com/ova-arena/).
 
 ## 🌐 Network architecture
 
@@ -110,7 +110,7 @@ If not, check
 - your firewall so that it allows the mqtt and ws port to be opened
 - your network connection  
 
-Now you can fully enjoy playing with Ova bots and IDEAL games without any constraints. Feel free to administrate your broker as you want by changing `acls.ini` `mosquitto.conf` and `passwd.ini`. Go on the [eclipse manual page](https://mosquitto.org/man/mosquitto-conf-5.html) to know more about how to do it.
+Now you can fully enjoy playing with Ova bots and Ova Arena games without any constraints. Feel free to administrate your broker as you want by changing `acls.ini` `mosquitto.conf` and `passwd.ini`. Go on the [eclipse manual page](https://mosquitto.org/man/mosquitto-conf-5.html) to know more about how to do it.
 
 If you need more help, feel free to [contact us](https://jusdeliens.com/contact) to join our robotic masterclasses 🤖
 
